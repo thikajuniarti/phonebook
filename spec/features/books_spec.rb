@@ -1,70 +1,60 @@
 require 'rails_helper'
 
 RSpec.feature "play book", :type => :feature do
-  let(:user) { FactoryGirl.create(:user, role: 'admin') }
+  let(:user) { FactoryGirl.create(:user) }
+  let!(:book) { FactoryGirl.create(:book, user: user) }
 
-  # before(:each) do
-  #   @book = FactoryGirl.create(:book)
-  # end
-
-  def login
-    login_as(user, :scope => :user, :run_callbacks => false)
-  end
-
-  # scenario "add book" do
-  #   login
+  # def create
+  #   login_as(user)
   #
   #   visit root_path
-  #   click_button "Launch demo modal"
-  #   within("#exampleModalLong") do
-  #       expect(page).to have_content("New Entry Data")
-  #       fill_in("book_name", :with => "Swastika")
-  #       fill_in("book_number", :with => "0812343321")
-  #       click_button ("Submit")
+  #   click_link "Entry new data"
+  #
+  #   within('#book-modal', visible: true) do
+  #     expect(page).to have_content("New Entry Data")
+  #     fill_in("book_name", :with => "Tikah")
+  #     fill_in("book_number", :with => "08123444311")
+  #     click_button "Submit"
   #   end
-  #
-  #   expect(page).to have_content("Swastika")
-  #
-  #   save_and_open_page
-  #
   # end
 
-  scenario "edit book" do
-    login
+  # it "create book", js: true do
+  #   create
+  #
+  #   expect(page).to have_content("Tikah")
+  #
+  #   save_and_open_page
+  # end
+
+  def update
+    login_as(user)
 
     visit root_path
-    click_button "Entry new data"
-    within("#new") do
-        expect(page).to have_content("New Entry Data")
-        fill_in("book_name", :with => "Swastika")
-        fill_in("book_number", :with => "0812343321")
-        click_button ("Submit")
-    end
-
     expect(page).to have_content("Swastika")
-    byebug
     click_link "Edit"
 
-    save_and_open_page
-
+    within('#book-modal', visible: true) do
+      expect(page).to have_content("Edit Data")
+      fill_in("book_name", :with => "Tikah")
+      click_button "Submit"
+    end
   end
 
-  # scenario "destroy book" do
-  #   login
+  it "edit book", js: true do
+    update
+    book.reload
+    # expect(book.name).to eq("Tikahhh")
+
+    save_and_open_page
+  end
+
+  # it "destroy book", js: true do
+  #   login_as(user)
   #
-  #   visit root_path
-  #   click_button "Launch demo modal"
-  #   within("#exampleModalLong") do
-  #       expect(page).to have_content("New Entry Data")
-  #       fill_in("book_name", :with => "Swastika")
-  #       fill_in("book_number", :with => "0812343321")
-  #       click_button ("Submit")
-  #   end
-  #
-  #   expect(page).to have_content("Swastika")
-  #   click_link "Destroy"
+  #     visit root_path
+  #     expect(page).to have_content("Swastika")
+  #     click_link "Destroy"
   #
   #   save_and_open_page
-  #
   # end
 end

@@ -5,7 +5,6 @@ class BooksController < ApplicationController
 
   def index
     @books = Book.accessible_by(current_ability)
-    @book = Book.new
   end
 
   def new

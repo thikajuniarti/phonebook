@@ -1,9 +1,9 @@
 <% if user_signed_in? %>
   <div class="well">
-      <!-- <%= link_to 'Entry new data', new_book_path, remote: true, class: "btn btn-primary" %> -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new">
+      <%= link_to 'Entry new data', new_book_path, remote: true, class: "btn btn-primary" %>
+      <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#new">
           Entry new data
-      </button>
+      </button> -->
   </div>
 
   <div class="page-header">
@@ -36,7 +36,7 @@
           <% if can? :look, Book %>
             <td><%= book.user.email %></td>
           <% end %>
-            <td><%= link_to "Edit", edit_book_path(book), remote: true, class: "btn btn-warning" %></td>
+            <td><%= link_to "Edit", edit_book_path(book), remote: true, class: "btn btn-warning", id:"edit" %></td>
           <% if can? :destroy, Book %>
             <td><%= link_to "Destroy", book_path(book), method: :delete, class: "btn btn-danger", id: "btn-delete" %></td>
           <% end %>
@@ -51,7 +51,4 @@
 
 <div id="book-modal" class="modal fade" ></div>
 
-<div class="modal fade" id="new" tabindex="-1" role="dialog">
-  <%= render 'new' %>
-</div>
 <% end %>
