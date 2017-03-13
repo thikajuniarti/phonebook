@@ -5,9 +5,10 @@ class Ability
     if user.present?
       if user.role == 'admin'
           can :manage, :all
-          can :look, Book
+          can :look, User
       else
-          can :manage, :all, user_id: user.id
+          alias_action :create, :read, :update, :destroy, :to => :crud
+          can :crud, :all, user_id: user.id
       end
     else
       can :index, Book

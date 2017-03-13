@@ -18,26 +18,21 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <% if user_signed_in? %>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
               <div class="navbar-brand">Phone Book Apps</div>
             </div>
-
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
-                <% if user_signed_in? %>
                   <!-- <li><%= link_to "Add new entry", new_book_path, remote: true %></li> -->
                   <li><%= link_to current_user.email %></li>
                   <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
-                <% else %>
-
-                <% end %>
               </ul>
             </div>
         </div>
     </nav>
-    <!-- <div id="book-modal" class="modal fade"></div> -->
     <div class="container theme-showcase" role="main">
       <div class="jumbotron">
           <h1>Phone Book</h1>
@@ -46,5 +41,10 @@
       </div>
       <%= yield %>
     </div>
+    <% else %>
+      <%= yield %>
+    <% end %>
+    <!-- <div id="book-modal" class="modal fade"></div> -->
+
   </body>
 </html>
