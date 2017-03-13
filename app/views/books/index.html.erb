@@ -30,8 +30,8 @@
             <td><%= book.address %></td>
             <td><%= book.number %></td>
             <td><%= book.email %></td>
-          <% if can? :look, User %>
-            <td><%= link_to book.user.email, edit_user_path(book.user.id), remote: true %></td>
+          <% if can? :look, Book %>
+            <td><%= book.user.email %></td>
           <% end %>
             <td><%= link_to "Edit", edit_book_path(book), remote: true, class: "btn btn-warning", id:"edit" %></td>
           <% if can? :destroy, Book %>

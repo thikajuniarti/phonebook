@@ -27,8 +27,13 @@ RSpec.describe BooksController, :type => :controller do
     end
 
     context 'with invalid attributes' do
-      it 'creates data phone book when name or number is nil' do
-        post :create, params: { book: FactoryGirl.attributes_for(:book, name: nil, number: nil) }, xhr: true
+      it 'creates data phone book when name is nil' do
+        post :create, params: { book: FactoryGirl.attributes_for(:book, name: nil) }, xhr: true
+        expect(Book.count).to eq(0)
+      end
+
+      it 'creates data phone book when number is nil' do
+        post :create, params: { book: FactoryGirl.attributes_for(:book, number: nil) }, xhr: true
         expect(Book.count).to eq(0)
       end
 
